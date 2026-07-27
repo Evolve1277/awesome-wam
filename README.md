@@ -1,6 +1,6 @@
 # Awesome WAM
 
-A continuously updated, English-language index of **World Action Models (WAMs)** for embodied robot control.
+A continuously updated index of **World Action Models (WAMs)** for embodied robot control.
 
 In this index, a WAM is a model where world prediction, video generation, future-state modeling, or joint world-action learning is a direct part of action prediction, planning, or closed-loop control.
 
