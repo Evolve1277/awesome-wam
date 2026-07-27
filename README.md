@@ -47,9 +47,13 @@ In this index, a WAM is a model where world prediction, video generation, future
 
 ## Method Records
 
+Each entry gives a short description followed by the core technical idea that distinguishes the method.
+
 ### Action Images
 
 Action Images studies visual action representations for robot control. Its official materials evaluate RLBench and a real xArm platform, but do not publish one aggregate success rate for this index.
+
+**Innovation:** It represents robot motion as multi-view RGB action images and jointly generates future multi-view video and action trajectories from images and language.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -62,6 +66,8 @@ Sources: [paper](https://arxiv.org/abs/2604.06168) / [code](https://github.com/U
 
 AIM is a world-action modeling method evaluated with a 30K-trajectory setup. Its authors report source-specific Easy and Hard RoboTwin 2.0 success rates.
 
+**Innovation:** It introduces spatial value maps as an explicit interface between world prediction and action decoding, using intent-causal attention to route future information through that map.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboTwin 2.0 | Easy: **94.0%**; Hard: **92.1%** | Keep the Easy/Hard protocol label when comparing. |
@@ -71,6 +77,8 @@ Sources: [paper](https://arxiv.org/abs/2604.11135) / [code](https://github.com/A
 ### Cosmos Policy
 
 Cosmos Policy is NVIDIA's policy release built around Cosmos world modeling. The official code exposes evaluation support for LIBERO, RoboCasa, and ALOHA, but no source-verifiable aggregate score is recorded here.
+
+**Innovation:** It fine-tunes a video model to jointly predict action chunks, future observations/proprioception, and future-state value for model-based planning.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -82,6 +90,8 @@ Sources: [paper](https://arxiv.org/abs/2601.16163) / [code](https://github.com/N
 
 EA-WM is a world-model method evaluated on WorldArena. Its paper presents the WorldArena result as state of the art, but this index does not add an unverified numerical value.
 
+**Innovation:** It projects actions and kinematic states into camera-view Structured Kinematic-to-Visual Action Fields and fuses them with event-aware bidirectional attention.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | WorldArena | State-of-the-art claim | A single figure was not verified for this index. |
@@ -91,6 +101,8 @@ Sources: [paper](https://arxiv.org/abs/2605.06192)
 ### GE-Act
 
 GE-Act is the action-generation component in Genie Envisioner. The official evaluation instructions publish both CALVIN long-horizon results and LIBERO split-level success rates.
+
+**Innovation:** It turns the pretrained Genie Envisioner video-world backbone into a policy through task-specific video adaptation followed by action post-training with an action expert.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -102,6 +114,8 @@ Sources: [paper](https://arxiv.org/abs/2508.05635) / [code](https://github.com/A
 ### GAM (Geometric Action Model)
 
 GAM is a separate method from GE-Act above. It adapts a pretrained geometric foundation model into one language-conditioned policy backbone for perception, future prediction, and action decoding.
+
+**Innovation:** It adapts a pretrained geometric foundation model into one shared backbone for perception, future prediction, and language-conditioned action decoding.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -116,6 +130,8 @@ Sources: [paper](https://arxiv.org/abs/2606.17046) / [code](https://github.com/c
 
 Motus is an embodied robot-control method with publicly reported RoboTwin 2.0 comparison data. The clean and randomized labels are retained rather than collapsed into one number.
 
+**Innovation:** It combines three MoT experts with optical-flow-derived latent actions, enabling one UniDiffuser-style model to switch among world, VLA, inverse-dynamics, video, and joint prediction modes.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboTwin 2.0 | clean: **88.7%**; randomized: **87.0%** | Reported in the Motubrain RoboTwin comparison. |
@@ -125,6 +141,8 @@ Sources: [paper](https://arxiv.org/abs/2512.13030) / [code](https://github.com/t
 ### Motubrain
 
 Motubrain combines world-model-oriented representation learning with embodied action prediction. Its project reports RoboTwin 2.0 results as well as a WorldArena EWMScore.
+
+**Innovation:** It uses a UniDiffuser-style formulation to jointly model video dynamics and actions, so one model supports policy learning, world modeling, video generation, inverse dynamics, and joint prediction.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -137,6 +155,8 @@ Sources: [paper](https://arxiv.org/abs/2604.27792) / [code](https://github.com/s
 
 LingBot-VA is an open vision-action model with publicly reported RoboTwin 2.0 results. Its result is included with its original clean/randomized labels.
 
+**Innovation:** It interleaves video-dynamics prediction and action inference in one autoregressive video-action model, with a dual-stream MoT, asynchronous execution, and KV caching.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboTwin 2.0 | clean: **92.9%**; randomized: **91.5%** | Reported in the Motubrain RoboTwin comparison. |
@@ -146,6 +166,8 @@ Sources: [paper](https://arxiv.org/abs/2601.21998) / [code](https://github.com/R
 ### MV-WAM
 
 MV-WAM is a multi-view world-action model evaluated under RoboTwin randomization and across four real-world tasks. The reported RoboTwin result specifically omits randomized action supervision.
+
+**Innovation:** It combines a cross-modality causal mask, manifold-aware optimization, and progress-value regulation to use video and value feedback for action recovery.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -158,6 +180,8 @@ Sources: [paper](https://arxiv.org/abs/2606.21088)
 
 VTAM targets contact-rich robot manipulation. Its reported headline result is a real-world average, not a RoboTwin or RoboDojo leaderboard score.
 
+**Innovation:** It adds tactile streams to a pretrained video transformer through lightweight modality-transfer finetuning and tactile regularization that balances cross-modal attention.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | Contact-rich real-world tasks | Average SR: **90%** | The potato-chip task is reported as **+80%** over pi0.5. |
@@ -167,6 +191,8 @@ Sources: [paper](https://arxiv.org/abs/2603.23481)
 ### ImageWAM
 
 ImageWAM connects image-world modeling to robot action learning. The official release includes LIBERO, LIBERO-Plus, and RoboTwin evaluations, but no concise aggregate number was verified for this index.
+
+**Innovation:** It repurposes image-editing foundation models for world-action learning, pairing image-editing training with action flow matching instead of relying on full future-video generation.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -178,6 +204,8 @@ Sources: [paper](https://arxiv.org/abs/2606.19531) / [code](https://github.com/y
 
 X-WAM is a world-action-model method with reported RoboTwin 2.0 and RoboCasa evaluations.
 
+**Innovation:** It augments a video prior with a lightweight interleaved depth branch for 4D prediction and uses asynchronous noise sampling to decode actions faster than videos.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboTwin 2.0 | **90.7%** | Reported success rate. |
@@ -188,6 +216,8 @@ Sources: [paper](https://arxiv.org/abs/2604.26694) / [code](https://github.com/s
 ### DiT4DiT
 
 DiT4DiT applies a diffusion-transformer formulation to the joint world/action setting. Its authors report LIBERO and RoboCasa-GR1 results together with efficiency claims.
+
+**Innovation:** It combines a video-generation transformer with flow-matching action prediction in one vision-action model for tabletop and humanoid robot control.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -201,6 +231,8 @@ Sources: [paper](https://arxiv.org/abs/2603.10448) / [code](https://github.com/M
 
 mimic-video uses video-based learning for robot control and evaluates on LIBERO plus real bimanual manipulation. Its public headline figures are relative efficiency measures rather than a single aggregate success rate.
 
+**Innovation:** It extracts imitation supervision from video, so useful behavior signals can be learned with less dependence on dense robot-action annotation.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | LIBERO and real bimanual manipulation | Evaluated | Reports **10x** sample efficiency and **2x** convergence speed. |
@@ -211,6 +243,8 @@ Sources: [paper](https://arxiv.org/abs/2512.15692) / [code](https://github.com/m
 
 VideoPolicy uses video prediction for visual robot control. The paper and public code are included here; a stable, source-verifiable summary benchmark number has not yet been added.
 
+**Innovation:** It makes predicted future video an explicit intermediate policy target, injecting temporal visual foresight into action selection.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | Public evaluations | -- | Add a score only when it can be linked to an official result table or model card. |
@@ -220,6 +254,8 @@ Sources: [paper](https://arxiv.org/abs/2508.00795) / [code](https://github.com/c
 ### Video Prediction Policy (VPP)
 
 VPP uses video prediction as a policy-learning signal. Its paper reports separate CALVIN ABC-D improvements in different settings, so the values are intentionally kept separate instead of being treated as the same metric.
+
+**Innovation:** It turns future-video prediction into a policy-training objective, allowing the controller to benefit from visual trajectory structure beyond immediate action labels.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -233,6 +269,8 @@ Sources: [paper](https://arxiv.org/abs/2412.14803) / [code](https://github.com/r
 
 MemoryWAM adds memory to world-action modeling for longer-horizon interaction. The paper provides a task-specific no-pretraining comparison rather than a broad aggregate leaderboard number.
 
+**Innovation:** It adds explicit memory to a WAM so task-relevant visual and action context can persist across long-horizon interaction.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | Observe-and-Pick-Up, no pretraining | **5%** | LingBot-VA comparison in the paper: **3%**. |
@@ -242,6 +280,8 @@ Sources: [paper](https://arxiv.org/abs/2606.20562)
 ### Fast-WAM
 
 Fast-WAM jointly trains on future-video and action targets but skips explicit future-video generation at inference time. It tests whether video co-training can retain representation benefits while meeting real-time control requirements.
+
+**Innovation:** It uses future-video prediction only as a training-time auxiliary target, keeping the representation benefit of imagination without paying for video rollout at test time.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -255,6 +295,8 @@ Sources: [paper](https://arxiv.org/abs/2603.16666) / [project](https://yuantiany
 
 DreamZero turns a pretrained video diffusion model into a zero-shot robot policy by jointly predicting actions and future videos. Its release includes checkpoints, training code, and evaluation support for simulation and real-world robot settings.
 
+**Innovation:** It converts a pretrained video-diffusion prior into a zero-shot policy by jointly predicting future video and robot actions.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboArena and MolmoSpaces | **#1** | Project announcement dated February 27, 2026. |
@@ -265,6 +307,8 @@ Sources: [paper](https://arxiv.org/abs/2602.15922) / [code](https://github.com/d
 
 RynnVLA-002 is an autoregressive action-world model that unifies image understanding, image generation, and action generation. It extends WorldVLA with continuous actions, wrist-camera input and generation, and robot-state input.
 
+**Innovation:** It unifies image understanding, image generation, continuous actions, wrist views, and robot state in one autoregressive action-world model.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | LIBERO continuous action | Average SR: **97.4%** | Spatial/Object/Goal/Long: 99.0/99.8/96.4/94.4. |
@@ -274,6 +318,8 @@ Sources: [paper](https://arxiv.org/abs/2511.17502) / [code](https://github.com/a
 ### DreamVLA
 
 DreamVLA predicts dynamic, spatial, and semantic world knowledge before inverse-dynamics action prediction. The model uses this perception-prediction-action loop for language-conditioned manipulation.
+
+**Innovation:** It makes dynamics, spatial structure, and semantic world knowledge explicit prediction targets before inverse-dynamics action generation.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -286,6 +332,8 @@ Sources: [paper](https://arxiv.org/abs/2507.04447) / [code](https://github.com/Z
 
 WorldVLA represents images, text, and actions in one autoregressive framework. Its design uses joint visual and action prediction so that the world-model and action-model objectives can improve one another.
 
+**Innovation:** It places images, language, and actions in one autoregressive token space, so visual forecasting and action generation improve a shared model.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | LIBERO grasping | **+4%** SR | Improvement over the action-only backbone. |
@@ -296,6 +344,8 @@ Sources: [paper](https://arxiv.org/abs/2506.21539) / [code](https://github.com/a
 ### Unified Video Action Model (UVA)
 
 UVA jointly learns video generation and action prediction with a shared Transformer and separate diffusion heads. At deployment, its decoupled action decoder produces controls without first generating a video rollout.
+
+**Innovation:** It shares a Transformer between video and action learning but decouples the action decoder at deployment, avoiding an expensive video-generation step for control.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
@@ -308,6 +358,8 @@ Sources: [paper](https://arxiv.org/abs/2503.00200) / [code](https://github.com/S
 
 DyWA is a point-cloud WAM for non-prehensile manipulation. It jointly predicts actions and future object states while adapting to changes in physical dynamics such as object mass and table friction.
 
+**Innovation:** It uses point clouds to jointly predict future object state and action while explicitly adapting to changed physical dynamics such as mass and friction.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | Real-world 6D rearrangement | Average SR: **68%** | CORN baseline: 36%. |
@@ -319,6 +371,8 @@ Sources: [paper](https://arxiv.org/abs/2503.16806) / [project](https://pku-epic.
 
 GR-2 is a generative video-language-action model pretrained on web-scale text-video data and then fine-tuned on robot trajectories. It jointly models videos and actions for large multi-task manipulation experiments.
 
+**Innovation:** It transfers web-scale text-video generative pretraining into robot control by jointly modeling language, video, and action trajectories.
+
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | 105-task real-world Simple setting | **97.7%** SR | Reported by the authors. |
@@ -329,6 +383,8 @@ Sources: [paper](https://arxiv.org/abs/2410.06158) / [project](https://gr2-manip
 ### Dreamitate
 
 Dreamitate fine-tunes a video generator to imagine task executions, tracks the generated tool trajectory in 3D, and executes that trajectory with a robot. The intermediate video plan makes policy behavior inspectable before execution.
+
+**Innovation:** It uses a generated task video as an inspectable plan, converts its tool trajectory into 3D, and then executes that trajectory with the robot.
 
 | Benchmark | Result | Notes |
 | --- | --- | --- |
