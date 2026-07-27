@@ -1,66 +1,367 @@
 # Awesome WAM
 
-A concise, English-language index of **World Action Models (WAMs)** for embodied robot control.
+A continuously updated, English-language index of **World Action Models (WAMs)** for embodied robot control.
 
-In this list, a WAM is a model in which world prediction, video generation, future-state modeling, or joint world-action learning is a direct part of action prediction, planning, or closed-loop control.
+In this index, a WAM is a model where world prediction, video generation, future-state modeling, or joint world-action learning is a direct part of action prediction, planning, or closed-loop control.
 
-> **Benchmark note.** All numbers and ranks below are reported by the original authors. Evaluation data, action representations, rollout counts, model sizes, and training recipes differ across papers, so the table is a reference index rather than a single comparable leaderboard.
+[Quick Comparison](#quick-comparison) | [Method Records](#method-records) | [Benchmark Notes](#benchmark-notes) | [Inclusion Principles](#inclusion-principles)
+
+> [!IMPORTANT]
+> All figures below are reported by the original authors or official project materials. Datasets, embodiments, action spaces, evaluation protocols, rollout budgets, model sizes, and training recipes differ across papers. This is a source-linked reference index, not a normalized leaderboard.
 
 ## Quick Comparison
 
-| Method | Year | Key reported benchmark result(s) | Links |
-| --- | ---: | --- | --- |
-| [Fast-WAM](https://arxiv.org/abs/2603.16666) | 2026 | LIBERO average success rate (SR): **97.6%**; RoboTwin 2.0 SR: **91.8%**; 190 ms inference latency. | [paper](https://arxiv.org/abs/2603.16666) / [project](https://yuantianyuan01.github.io/FastWAM/) |
-| [DreamZero](https://arxiv.org/abs/2602.15922) | 2026 | **#1** on RoboArena and MolmoSpaces in the project's February 27, 2026 announcement. | [paper](https://arxiv.org/abs/2602.15922) / [code](https://github.com/dreamzero0/dreamzero) |
-| [RynnVLA-002](https://arxiv.org/abs/2511.17502) | 2025 | LIBERO continuous-action SR: **97.4%** average (Spatial/Object/Goal/Long: 99.0/99.8/96.4/94.4). | [paper](https://arxiv.org/abs/2511.17502) / [code](https://github.com/alibaba-damo-academy/RynnVLA-002) |
-| [DreamVLA](https://arxiv.org/abs/2507.04447) | 2025 | LIBERO average SR: **92.6%**; CALVIN ABC-D average chain length: **4.44**. | [paper](https://arxiv.org/abs/2507.04447) / [code](https://github.com/Zhangwenyao1/DreamVLA) |
-| [WorldVLA](https://arxiv.org/abs/2506.21539) | 2025 | LIBERO grasping SR: **+4%** over its action-only backbone; LIBERO FVD: **10% lower** than its vanilla world model. | [paper](https://arxiv.org/abs/2506.21539) / [code](https://github.com/alibaba-damo-academy/WorldVLA) |
-| [Unified Video Action Model (UVA)](https://arxiv.org/abs/2503.00200) | 2025 | **+20%** over the best baseline on PushT-M and **+5%** on LIBERO-10, as reported by the paper. | [paper](https://arxiv.org/abs/2503.00200) / [code](https://github.com/ShuangLI59/unified_video_action) |
-| [DyWA](https://arxiv.org/abs/2503.16806) | 2025 | Real-world 6D rearrangement average SR: **68%** (CORN: 36%); simulation world-model-plus-adaptation ablation: **73.3%** SR. | [paper](https://arxiv.org/abs/2503.16806) / [project](https://pku-epic.github.io/) |
-| [GR-2](https://arxiv.org/abs/2410.06158) | 2024 | 105-task real-world Simple setting: **97.7%** SR; unseen-environment setting: **87.0%** SR. | [paper](https://arxiv.org/abs/2410.06158) / [project](https://gr2-manipulation.github.io/) |
-| [Dreamitate](https://arxiv.org/abs/2406.16862) | 2024 | Real-world SR: **92.5%** object rotation, **85.0%** scooping, and **92.5%** tabletop sweeping. | [paper](https://arxiv.org/abs/2406.16862) / [project](https://dreamitate.cs.columbia.edu/) |
+`--` means that a source-verifiable, directly relevant aggregate result was not found. RoboTwin labels are preserved exactly as reported; `Easy/Hard` and `clean/randomized` are not interchangeable protocols.
 
-**SR** means success rate. **FVD** means Frechet Video Distance (lower is better). CALVIN average chain length is the average number of consecutively completed subtasks.
+| Method | Year | RoboTwin 2.0 | RoboDojo | Other key reported result(s) | Links |
+| --- | ---: | --- | --- | --- | --- |
+| [Action Images](https://arxiv.org/abs/2604.06168) | 2026 | -- | -- | Evaluated on RLBench and a real xArm; no single aggregate score reported. | [paper](https://arxiv.org/abs/2604.06168) / [code](https://github.com/UMass-Embodied-AGI/ActionImages) |
+| [AIM](https://arxiv.org/abs/2604.11135) | 2026 | Easy: **94.0%**; Hard: **92.1%** | -- | Reported with 30K trajectories. | [paper](https://arxiv.org/abs/2604.11135) / [code](https://github.com/Agentic-Intelligence-Lab/AIM) |
+| [Cosmos Policy](https://arxiv.org/abs/2601.16163) | 2026 | -- | -- | Official release supports LIBERO, RoboCasa, and ALOHA evaluation. | [paper](https://arxiv.org/abs/2601.16163) / [code](https://github.com/NVlabs/cosmos-policy) |
+| [EA-WM](https://arxiv.org/abs/2605.06192) | 2026 | -- | -- | WorldArena state-of-the-art claim; no single figure added here. | [paper](https://arxiv.org/abs/2605.06192) |
+| [GE-Act](https://arxiv.org/abs/2508.05635) | 2025 | -- | -- | LIBERO average SR: **96.5%**; CALVIN average subtasks: **4.260**. | [paper](https://arxiv.org/abs/2508.05635) / [code](https://github.com/AgibotTech/Genie-Envisioner) / [project](https://genie-envisioner.github.io/) |
+| [GAM (Geometric Action Model)](https://arxiv.org/abs/2606.17046) | 2026 | -- | -- | LIBERO: **97.6%**; LIBERO-Plus: **85.5%**; camera split: **83.1%**; forward latency: **6.9 ms**. | [paper](https://arxiv.org/abs/2606.17046) / [code](https://github.com/cvlab-kaist/Geometric-Action-Model) / [project](https://cvlab-kaist.github.io/Geometric-Action-Model/) |
+| [Motus](https://arxiv.org/abs/2512.13030) | 2025 | clean: **88.7%**; randomized: **87.0%** | -- | Scores appear in the Motubrain RoboTwin comparison. | [paper](https://arxiv.org/abs/2512.13030) / [code](https://github.com/thu-ml/Motus) / [comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20) |
+| [Motubrain](https://arxiv.org/abs/2604.27792) | 2026 | clean: **95.8%**; randomized: **96.1%** | -- | WorldArena EWMScore: **63.77**. | [paper](https://arxiv.org/abs/2604.27792) / [code](https://github.com/shengshu-ai/Motubrain) |
+| [LingBot-VA](https://arxiv.org/abs/2601.21998) | 2026 | clean: **92.9%**; randomized: **91.5%** | -- | Scores appear in the Motubrain RoboTwin comparison. | [paper](https://arxiv.org/abs/2601.21998) / [code](https://github.com/Robbyant/lingbot-va) / [comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20) |
+| [MV-WAM](https://arxiv.org/abs/2606.21088) | 2026 | randomized: **55.7%** without randomized action supervision | -- | Real-world four-task average SR: **77.5%**. | [paper](https://arxiv.org/abs/2606.21088) |
+| [VTAM](https://arxiv.org/abs/2603.23481) | 2026 | -- | -- | Contact-rich real-world average SR: **90%**; potato-chip task: **+80%** vs. pi0.5. | [paper](https://arxiv.org/abs/2603.23481) |
+| [ImageWAM](https://arxiv.org/abs/2606.19531) | 2026 | -- | -- | Evaluated on LIBERO, LIBERO-Plus, and RoboTwin; no concise aggregate verified. | [paper](https://arxiv.org/abs/2606.19531) / [code](https://github.com/yuyangalin/ImageWAM) |
+| [X-WAM](https://arxiv.org/abs/2604.26694) | 2026 | **90.7%** | -- | RoboCasa: **79.2%**. | [paper](https://arxiv.org/abs/2604.26694) / [code](https://github.com/sharinka0715/X-WAM) |
+| [DiT4DiT](https://arxiv.org/abs/2603.10448) | 2026 | -- | -- | LIBERO: **98.6%**; RoboCasa-GR1: **50.8%**. | [paper](https://arxiv.org/abs/2603.10448) / [code](https://github.com/Mondo-Robotics/DiT4DiT) |
+| [mimic-video](https://arxiv.org/abs/2512.15692) | 2025 | -- | -- | Reports **10x** sample efficiency and **2x** convergence speed. | [paper](https://arxiv.org/abs/2512.15692) / [code](https://github.com/mimic-video/mimic-video) |
+| [VideoPolicy](https://arxiv.org/abs/2508.00795) | 2025 | -- | -- | Public paper and code identified; a source-verifiable summary metric has not been added. | [paper](https://arxiv.org/abs/2508.00795) / [code](https://github.com/cvlab-columbia/videopolicy) |
+| [Video Prediction Policy (VPP)](https://arxiv.org/abs/2412.14803) | 2024 | -- | -- | CALVIN ABC-D improvement: **18.6%** in the abstract and **41.5%** in another paper setting; real dexterous SR: **+31.6%**. | [paper](https://arxiv.org/abs/2412.14803) / [code](https://github.com/roboterax/video-prediction-policy) |
+| [MemoryWAM](https://arxiv.org/abs/2606.20562) | 2026 | -- | -- | Observe-and-Pick-Up without pretraining: **5%**; LingBot-VA comparison: **3%**. | [paper](https://arxiv.org/abs/2606.20562) |
+| [Fast-WAM](https://arxiv.org/abs/2603.16666) | 2026 | clean: **91.9%**; randomized: **91.8%** | -- | LIBERO average SR: **97.6%**; inference latency: **190 ms**. | [paper](https://arxiv.org/abs/2603.16666) / [project](https://yuantianyuan01.github.io/FastWAM/) / [comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20) |
+| [DreamZero](https://arxiv.org/abs/2602.15922) | 2026 | -- | -- | **#1** on RoboArena and MolmoSpaces in the February 27, 2026 project announcement. | [paper](https://arxiv.org/abs/2602.15922) / [code](https://github.com/dreamzero0/dreamzero) |
+| [RynnVLA-002](https://arxiv.org/abs/2511.17502) | 2025 | -- | -- | LIBERO continuous-action average SR: **97.4%**. | [paper](https://arxiv.org/abs/2511.17502) / [code](https://github.com/alibaba-damo-academy/RynnVLA-002) |
+| [DreamVLA](https://arxiv.org/abs/2507.04447) | 2025 | -- | -- | LIBERO average SR: **92.6%**; CALVIN ABC-D average chain length: **4.44**. | [paper](https://arxiv.org/abs/2507.04447) / [code](https://github.com/Zhangwenyao1/DreamVLA) |
+| [WorldVLA](https://arxiv.org/abs/2506.21539) | 2025 | -- | -- | LIBERO grasping SR: **+4%** over its action-only backbone; LIBERO FVD: **10% lower** than its vanilla world model. | [paper](https://arxiv.org/abs/2506.21539) / [code](https://github.com/alibaba-damo-academy/WorldVLA) |
+| [Unified Video Action Model (UVA)](https://arxiv.org/abs/2503.00200) | 2025 | -- | -- | **+20%** over the best baseline on PushT-M; **+5%** on LIBERO-10. | [paper](https://arxiv.org/abs/2503.00200) / [code](https://github.com/ShuangLI59/unified_video_action) |
+| [DyWA](https://arxiv.org/abs/2503.16806) | 2025 | -- | -- | Real-world 6D rearrangement average SR: **68%**; world-model-plus-adaptation ablation: **73.3%**. | [paper](https://arxiv.org/abs/2503.16806) / [project](https://pku-epic.github.io/) |
+| [GR-2](https://arxiv.org/abs/2410.06158) | 2024 | -- | -- | 105-task real-world Simple SR: **97.7%**; unseen-environment SR: **87.0%**. | [paper](https://arxiv.org/abs/2410.06158) / [project](https://gr2-manipulation.github.io/) |
+| [Dreamitate](https://arxiv.org/abs/2406.16862) | 2024 | -- | -- | Real-world SR: **92.5%** rotation; **85.0%** scooping; **92.5%** sweeping. | [paper](https://arxiv.org/abs/2406.16862) / [project](https://dreamitate.cs.columbia.edu/) |
 
-## Methods
+**SR** means success rate. **FVD** means Frechet Video Distance (lower is better). CALVIN average subtasks or chain length is the average number of consecutively completed subtasks. EWMScore is the metric reported by WorldArena.
+
+## Method Records
+
+### Action Images
+
+Action Images studies visual action representations for robot control. Its official materials evaluate RLBench and a real xArm platform, but do not publish one aggregate success rate for this index.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RLBench | Evaluated | No single aggregate score reported in the source used here. |
+| Real xArm | Evaluated | No single aggregate score reported in the source used here. |
+
+Sources: [paper](https://arxiv.org/abs/2604.06168) / [code](https://github.com/UMass-Embodied-AGI/ActionImages)
+
+### AIM
+
+AIM is a world-action modeling method evaluated with a 30K-trajectory setup. Its authors report source-specific Easy and Hard RoboTwin 2.0 success rates.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | Easy: **94.0%**; Hard: **92.1%** | Keep the Easy/Hard protocol label when comparing. |
+
+Sources: [paper](https://arxiv.org/abs/2604.11135) / [code](https://github.com/Agentic-Intelligence-Lab/AIM)
+
+### Cosmos Policy
+
+Cosmos Policy is NVIDIA's policy release built around Cosmos world modeling. The official code exposes evaluation support for LIBERO, RoboCasa, and ALOHA, but no source-verifiable aggregate score is recorded here.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO, RoboCasa, and ALOHA | Evaluation support | No single aggregate score added from the official source. |
+
+Sources: [paper](https://arxiv.org/abs/2601.16163) / [code](https://github.com/NVlabs/cosmos-policy)
+
+### EA-WM
+
+EA-WM is a world-model method evaluated on WorldArena. Its paper presents the WorldArena result as state of the art, but this index does not add an unverified numerical value.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| WorldArena | State-of-the-art claim | A single figure was not verified for this index. |
+
+Sources: [paper](https://arxiv.org/abs/2605.06192)
+
+### GE-Act
+
+GE-Act is the action-generation component in Genie Envisioner. The official evaluation instructions publish both CALVIN long-horizon results and LIBERO split-level success rates.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| CALVIN | Average subtasks: **4.260** | Official simulation benchmark result. |
+| LIBERO | Average SR: **96.5%** | Goal: 95.8%; Object: 97.6%; LIBERO-10: 94.4%; Spatial: 98.2%. |
+
+Sources: [paper](https://arxiv.org/abs/2508.05635) / [code](https://github.com/AgibotTech/Genie-Envisioner) / [official evaluation](https://github.com/AgibotTech/Genie-Envisioner/blob/master/experiments/RUN.md) / [project](https://genie-envisioner.github.io/)
+
+### GAM (Geometric Action Model)
+
+GAM is a separate method from GE-Act above. It adapts a pretrained geometric foundation model into one language-conditioned policy backbone for perception, future prediction, and action decoding.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO | **97.6%** | Reported success rate for the released 1.4B GAM model. |
+| LIBERO-Plus | **85.5%** | Reported success rate. |
+| Camera split | **83.1%** | Reported success rate. |
+| Inference | **6.9 ms** model-forward latency | CUDA graph inference path; not a benchmark score. |
+
+Sources: [paper](https://arxiv.org/abs/2606.17046) / [code](https://github.com/cvlab-kaist/Geometric-Action-Model) / [project](https://cvlab-kaist.github.io/Geometric-Action-Model/)
+
+### Motus
+
+Motus is an embodied robot-control method with publicly reported RoboTwin 2.0 comparison data. The clean and randomized labels are retained rather than collapsed into one number.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | clean: **88.7%**; randomized: **87.0%** | Reported in the Motubrain RoboTwin comparison. |
+
+Sources: [paper](https://arxiv.org/abs/2512.13030) / [code](https://github.com/thu-ml/Motus) / [Motubrain comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20)
+
+### Motubrain
+
+Motubrain combines world-model-oriented representation learning with embodied action prediction. Its project reports RoboTwin 2.0 results as well as a WorldArena EWMScore.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | clean: **95.8%**; randomized: **96.1%** | Source-specific protocol labels. |
+| WorldArena | EWMScore: **63.77** | Use the benchmark's named metric rather than treating it as SR. |
+
+Sources: [paper](https://arxiv.org/abs/2604.27792) / [code](https://github.com/shengshu-ai/Motubrain)
+
+### LingBot-VA
+
+LingBot-VA is an open vision-action model with publicly reported RoboTwin 2.0 results. Its result is included with its original clean/randomized labels.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | clean: **92.9%**; randomized: **91.5%** | Reported in the Motubrain RoboTwin comparison. |
+
+Sources: [paper](https://arxiv.org/abs/2601.21998) / [code](https://github.com/Robbyant/lingbot-va) / [Motubrain comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20)
+
+### MV-WAM
+
+MV-WAM is a multi-view world-action model evaluated under RoboTwin randomization and across four real-world tasks. The reported RoboTwin result specifically omits randomized action supervision.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | randomized: **55.7%** | Reported without randomized action supervision. |
+| Real-world four-task suite | Average SR: **77.5%** | Four-task average reported by the paper. |
+
+Sources: [paper](https://arxiv.org/abs/2606.21088)
+
+### VTAM
+
+VTAM targets contact-rich robot manipulation. Its reported headline result is a real-world average, not a RoboTwin or RoboDojo leaderboard score.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| Contact-rich real-world tasks | Average SR: **90%** | The potato-chip task is reported as **+80%** over pi0.5. |
+
+Sources: [paper](https://arxiv.org/abs/2603.23481)
+
+### ImageWAM
+
+ImageWAM connects image-world modeling to robot action learning. The official release includes LIBERO, LIBERO-Plus, and RoboTwin evaluations, but no concise aggregate number was verified for this index.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO, LIBERO-Plus, and RoboTwin | Evaluated | No single aggregate score extracted from the official release. |
+
+Sources: [paper](https://arxiv.org/abs/2606.19531) / [code](https://github.com/yuyangalin/ImageWAM)
+
+### X-WAM
+
+X-WAM is a world-action-model method with reported RoboTwin 2.0 and RoboCasa evaluations.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboTwin 2.0 | **90.7%** | Reported success rate. |
+| RoboCasa | **79.2%** | Reported success rate. |
+
+Sources: [paper](https://arxiv.org/abs/2604.26694) / [code](https://github.com/sharinka0715/X-WAM)
+
+### DiT4DiT
+
+DiT4DiT applies a diffusion-transformer formulation to the joint world/action setting. Its authors report LIBERO and RoboCasa-GR1 results together with efficiency claims.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO | **98.6%** | Reported success rate. |
+| RoboCasa-GR1 | **50.8%** | Reported success rate. |
+| Training efficiency | Over **10x** sample efficiency; up to **7x** convergence speed | Relative claims reported by the authors. |
+
+Sources: [paper](https://arxiv.org/abs/2603.10448) / [code](https://github.com/Mondo-Robotics/DiT4DiT)
+
+### mimic-video
+
+mimic-video uses video-based learning for robot control and evaluates on LIBERO plus real bimanual manipulation. Its public headline figures are relative efficiency measures rather than a single aggregate success rate.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO and real bimanual manipulation | Evaluated | Reports **10x** sample efficiency and **2x** convergence speed. |
+
+Sources: [paper](https://arxiv.org/abs/2512.15692) / [code](https://github.com/mimic-video/mimic-video)
+
+### VideoPolicy
+
+VideoPolicy uses video prediction for visual robot control. The paper and public code are included here; a stable, source-verifiable summary benchmark number has not yet been added.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| Public evaluations | -- | Add a score only when it can be linked to an official result table or model card. |
+
+Sources: [paper](https://arxiv.org/abs/2508.00795) / [code](https://github.com/cvlab-columbia/videopolicy)
+
+### Video Prediction Policy (VPP)
+
+VPP uses video prediction as a policy-learning signal. Its paper reports separate CALVIN ABC-D improvements in different settings, so the values are intentionally kept separate instead of being treated as the same metric.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| CALVIN ABC-D | **+18.6%** | Improvement stated in the abstract. |
+| CALVIN ABC-D | **+41.5%** | Improvement reported for a different paper setting. |
+| Real dexterous manipulation | **+31.6%** | Reported success-rate improvement. |
+
+Sources: [paper](https://arxiv.org/abs/2412.14803) / [code](https://github.com/roboterax/video-prediction-policy)
+
+### MemoryWAM
+
+MemoryWAM adds memory to world-action modeling for longer-horizon interaction. The paper provides a task-specific no-pretraining comparison rather than a broad aggregate leaderboard number.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| Observe-and-Pick-Up, no pretraining | **5%** | LingBot-VA comparison in the paper: **3%**. |
+
+Sources: [paper](https://arxiv.org/abs/2606.20562)
 
 ### Fast-WAM
 
-Fast-WAM jointly trains on future video and action targets, but skips explicit future-video generation at inference time. It tests whether video co-training can provide the representation benefits of a WAM while retaining real-time control.
+Fast-WAM jointly trains on future-video and action targets but skips explicit future-video generation at inference time. It tests whether video co-training can retain representation benefits while meeting real-time control requirements.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO | Average SR: **97.6%** | Reported by the authors. |
+| RoboTwin 2.0 | clean: **91.9%**; randomized: **91.8%** | Reported in the Motubrain RoboTwin comparison. |
+| Inference | **190 ms** latency | Not a benchmark score. |
+
+Sources: [paper](https://arxiv.org/abs/2603.16666) / [project](https://yuantianyuan01.github.io/FastWAM/) / [Motubrain comparison](https://github.com/shengshu-ai/Motubrain#robotwin-20)
 
 ### DreamZero
 
 DreamZero turns a pretrained video diffusion model into a zero-shot robot policy by jointly predicting actions and future videos. Its release includes checkpoints, training code, and evaluation support for simulation and real-world robot settings.
 
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| RoboArena and MolmoSpaces | **#1** | Project announcement dated February 27, 2026. |
+
+Sources: [paper](https://arxiv.org/abs/2602.15922) / [code](https://github.com/dreamzero0/dreamzero)
+
 ### RynnVLA-002
 
-RynnVLA-002 is an autoregressive action-world model that unifies image understanding, image generation, and action generation. It extends WorldVLA with continuous actions, wrist-camera input and generation, and robot state input.
+RynnVLA-002 is an autoregressive action-world model that unifies image understanding, image generation, and action generation. It extends WorldVLA with continuous actions, wrist-camera input and generation, and robot-state input.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO continuous action | Average SR: **97.4%** | Spatial/Object/Goal/Long: 99.0/99.8/96.4/94.4. |
+
+Sources: [paper](https://arxiv.org/abs/2511.17502) / [code](https://github.com/alibaba-damo-academy/RynnVLA-002)
 
 ### DreamVLA
 
-DreamVLA predicts dynamic, spatial, and semantic world knowledge before inverse-dynamics action prediction. The model uses this perception-prediction-action loop to improve language-conditioned manipulation.
+DreamVLA predicts dynamic, spatial, and semantic world knowledge before inverse-dynamics action prediction. The model uses this perception-prediction-action loop for language-conditioned manipulation.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO | Average SR: **92.6%** | Reported by the authors. |
+| CALVIN ABC-D | Average chain length: **4.44** | Not directly interchangeable with SR. |
+
+Sources: [paper](https://arxiv.org/abs/2507.04447) / [code](https://github.com/Zhangwenyao1/DreamVLA)
 
 ### WorldVLA
 
-WorldVLA represents images, text, and actions in one autoregressive framework. Its design uses joint action and visual prediction so that the world-model and action-model objectives can improve one another.
+WorldVLA represents images, text, and actions in one autoregressive framework. Its design uses joint visual and action prediction so that the world-model and action-model objectives can improve one another.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| LIBERO grasping | **+4%** SR | Improvement over the action-only backbone. |
+| LIBERO video quality | **10%** lower FVD | Comparison with the vanilla world model; lower is better. |
+
+Sources: [paper](https://arxiv.org/abs/2506.21539) / [code](https://github.com/alibaba-damo-academy/WorldVLA)
 
 ### Unified Video Action Model (UVA)
 
-UVA jointly learns video generation and action prediction with a shared Transformer and separate diffusion heads. At deployment, its decoupled action decoder can produce controls without first generating a video rollout.
+UVA jointly learns video generation and action prediction with a shared Transformer and separate diffusion heads. At deployment, its decoupled action decoder produces controls without first generating a video rollout.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| PushT-M | **+20%** | Improvement over the best baseline reported by the paper. |
+| LIBERO-10 | **+5%** | Improvement over the best baseline reported by the paper. |
+
+Sources: [paper](https://arxiv.org/abs/2503.00200) / [code](https://github.com/ShuangLI59/unified_video_action)
 
 ### DyWA
 
 DyWA is a point-cloud WAM for non-prehensile manipulation. It jointly predicts actions and future object states while adapting to changes in physical dynamics such as object mass and table friction.
 
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| Real-world 6D rearrangement | Average SR: **68%** | CORN baseline: 36%. |
+| Simulation ablation | **73.3%** SR | World-model-plus-adaptation setting. |
+
+Sources: [paper](https://arxiv.org/abs/2503.16806) / [project](https://pku-epic.github.io/)
+
 ### GR-2
 
 GR-2 is a generative video-language-action model pretrained on web-scale text-video data and then fine-tuned on robot trajectories. It jointly models videos and actions for large multi-task manipulation experiments.
 
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| 105-task real-world Simple setting | **97.7%** SR | Reported by the authors. |
+| Unseen-environment setting | **87.0%** SR | Reported by the authors. |
+
+Sources: [paper](https://arxiv.org/abs/2410.06158) / [project](https://gr2-manipulation.github.io/)
+
 ### Dreamitate
 
-Dreamitate fine-tunes a video generator to imagine task executions, tracks the generated tool trajectory in 3D, and executes that trajectory with a robot. The intermediate video plan makes the policy behavior inspectable before robot execution.
+Dreamitate fine-tunes a video generator to imagine task executions, tracks the generated tool trajectory in 3D, and executes that trajectory with a robot. The intermediate video plan makes policy behavior inspectable before execution.
+
+| Benchmark | Result | Notes |
+| --- | --- | --- |
+| Real-world object rotation | **92.5%** SR | Reported by the authors. |
+| Real-world scooping | **85.0%** SR | Reported by the authors. |
+| Real-world tabletop sweeping | **92.5%** SR | Reported by the authors. |
+
+Sources: [paper](https://arxiv.org/abs/2406.16862) / [project](https://dreamitate.cs.columbia.edu/)
+
+## Benchmark Notes
+
+| Benchmark | What this index records | Comparison caution |
+| --- | --- | --- |
+| [RoboTwin 2.0](https://github.com/RoboTwin-Platform/RoboTwin) | Author-reported success rates with original labels, plus the [official leaderboard](https://robotwin-platform.github.io/leaderboard). | Easy/Hard and clean/randomized use source-specific protocols; do not rank them as if they were one test. |
+| [RoboDojo](https://arxiv.org/abs/2607.04434) | A unified sim-and-real benchmark with 42 simulation tasks and 18 real-world tasks across three embodiments. | Results are continuously updated on the [live leaderboard](https://robodojo-benchmark.com/leaderboard); no unverified snapshot scores are copied here. |
+| LIBERO | Average success rates and per-suite splits when papers publish them. | Task subsets, action parameterization, data processing, and evaluation seeds may differ. |
+| LIBERO-Plus | Reported aggregate or split results when explicitly named by the source. | It is not interchangeable with LIBERO. |
+| RoboCasa | Reported success rates and the exact variant where available, such as RoboCasa-GR1. | Different RoboCasa variants should remain separately labeled. |
+| CALVIN | Chain length or average subtasks, plus explicitly named improvements. | Chain length is not a direct success-rate percentage. |
+| WorldArena | Named metrics such as EWMScore and explicit state-of-the-art claims. | Keep the original metric name and evaluation configuration. |
+
+## Inclusion Principles
+
+- Include methods where world prediction, video generation, future-state modeling, or joint world-action learning is directly tied to robot action generation, planning, or closed-loop control.
+- Prefer papers with official code, project pages, checkpoints, or evaluation materials.
+- Record a result only with its benchmark name, metric, source URL, and any essential protocol qualifier.
+- Keep author-reported figures, live leaderboards, and independent reproductions distinct.
+- Do not convert incompatible metrics or protocols into a single ranking.
+
+Last checked: 2026-07-27.
 
 ## Related Resources
 
-- [Awesome World Action Model](https://github.com/nicolascc1/Awesome-World-Action-Model): a broader paper taxonomy and reading list.
-- [Awesome Agent](https://github.com/xinggangw/awesome-agent): the structural inspiration for this concise index.
+- [Awesome Agent](https://github.com/xinggangw/awesome-agent): structural inspiration for the quick-comparison and per-record format.
+- [OpenMOSS Awesome-WAM](https://github.com/OpenMOSS/Awesome-WAM): a broader WAM taxonomy and reading list.
+- [Awesome World Action Model](https://github.com/nicolascc1/Awesome-World-Action-Model): another broad world-action-model reading list.
