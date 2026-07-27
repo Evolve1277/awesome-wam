@@ -17,7 +17,7 @@ In this index, a WAM is a model where world prediction, video generation, future
 | --- | ---: | --- | --- | --- | --- |
 | [Action Images](https://arxiv.org/abs/2604.06168) | 2026 | -- | -- | RLBench zero-shot SR: **38.75%**; real xArm zero-shot average SR: **26.0%**. | [paper](https://arxiv.org/abs/2604.06168) / [project](https://actionimages.github.io/) / [code](https://github.com/UMass-Embodied-AGI/ActionImages) |
 | [AIM](https://arxiv.org/abs/2604.11135) | 2026 | Easy: **94.0%**; Hard: **92.1%** | -- | Reported with 30K trajectories. | [paper](https://arxiv.org/abs/2604.11135) / [code](https://github.com/Agentic-Intelligence-Lab/AIM) |
-| [AHA-WAM](https://arxiv.org/abs/2606.09811) | 2026 | clean: **93.40%**; randomized: **92.20%**; avg: **92.80%** | -- | Real-world four-task average SR: **78.33%**; closed-loop: **24.17 Hz**. | [paper](https://arxiv.org/abs/2606.09811) / [code](https://github.com/serene-sivy/AHA-WAM) |
+| [AHA-WAM](https://arxiv.org/abs/2606.09811) | 2026 | clean: **93.40%**; randomized: **92.20%**; avg: **92.80%** | Score: **4.82**; SR: **2.39%** | Real-world four-task average SR: **78.33%**; closed-loop: **24.17 Hz**. | [paper](https://arxiv.org/abs/2606.09811) / [code](https://github.com/serene-sivy/AHA-WAM) / [RoboDojo](https://robodojo-benchmark.com/leaderboard/rollouts/AHA_WAM?bench=sim) |
 | [Cosmos Policy](https://arxiv.org/abs/2601.16163) | 2026 | -- | -- | LIBERO average SR: **98.5%**; RoboCasa: **67.1%**; ALOHA average score: **93.6%**. | [paper](https://arxiv.org/abs/2601.16163) / [project](https://research.nvidia.com/labs/cosmos-lab/cosmos-policy/) / [code](https://github.com/NVlabs/cosmos-policy) |
 | [EA-WM](https://arxiv.org/abs/2605.06192) | 2026 | -- | -- | WorldArena P3CScore: **76.60**. | [paper](https://arxiv.org/abs/2605.06192) |
 | [GE-Act](https://arxiv.org/abs/2508.05635) | 2025 | -- | -- | LIBERO average SR: **96.5%**; CALVIN average subtasks: **4.260**. | [paper](https://arxiv.org/abs/2508.05635) / [code](https://github.com/AgibotTech/Genie-Envisioner) / [project](https://genie-envisioner.github.io/) |
@@ -84,10 +84,11 @@ AHA-WAM separates low-frequency world planning from high-frequency closed-loop a
 | Benchmark | Result | Notes |
 | --- | --- | --- |
 | RoboTwin 2.0 (50 tasks) | clean: **93.40%**; randomized: **92.20%**; average: **92.80%** | 100 trials per task in each setting; no robot-data pretraining. |
+| RoboDojo-Sim | Score: **4.82**; SR: **2.39%** | Official leaderboard overall result, captured 2026-07-27. Dimension results (Score/SR): Generalization **5.79/3.28%**, Precision **5.86/2.42%**, Long-Horizon **8.61/2.67%**, Memory **2.97/2.78%**, Open **0.88/0.83%**. |
 | Real-world four-task suite | Average SR: **78.33%** | Fold Towel, Organize Desktop, Prepare Soy Milk, and Store Plate. |
 | Closed-loop control | **24.17 Hz** | Main model; the paper separately reports a faster distilled variant. |
 
-Sources: [paper](https://arxiv.org/abs/2606.09811) / [code](https://github.com/serene-sivy/AHA-WAM)
+Sources: [paper](https://arxiv.org/abs/2606.09811) / [code](https://github.com/serene-sivy/AHA-WAM) / [RoboDojo rollout record](https://robodojo-benchmark.com/leaderboard/rollouts/AHA_WAM?bench=sim)
 
 ### Cosmos Policy
 
@@ -435,7 +436,7 @@ Sources: [paper](https://arxiv.org/abs/2406.16862) / [project](https://dreamitat
 | Benchmark | What this index records | Comparison caution |
 | --- | --- | --- |
 | [RoboTwin 2.0](https://github.com/RoboTwin-Platform/RoboTwin) | Author-reported success rates with original labels, plus the [official leaderboard](https://robotwin-platform.github.io/leaderboard). | Easy/Hard and clean/randomized use source-specific protocols; do not rank them as if they were one test. |
-| [RoboDojo](https://arxiv.org/abs/2607.04434) | A unified sim-and-real benchmark with 42 simulation tasks and 18 real-world tasks across three embodiments. | This index uses the official [live leaderboard](https://robodojo-benchmark.com/leaderboard) snapshot from 2026-07-27: X-WAM (Score 7.69, SR 3.83%) and Fast-WAM (Score 3.48, SR 2.03%) are the only exact matches in this list. |
+| [RoboDojo](https://arxiv.org/abs/2607.04434) | A unified sim-and-real benchmark with 42 simulation tasks and 18 real-world tasks across three embodiments. | This index uses the official [live leaderboard](https://robodojo-benchmark.com/leaderboard) snapshot from 2026-07-27: AHA-WAM (Score 4.82, SR 2.39%), X-WAM (Score 7.69, SR 3.83%), and Fast-WAM (Score 3.48, SR 2.03%) are exact matches in this list. |
 | LIBERO | Average success rates and per-suite splits when papers publish them. | Task subsets, action parameterization, data processing, and evaluation seeds may differ. |
 | LIBERO-Plus | Reported aggregate or split results when explicitly named by the source. | It is not interchangeable with LIBERO. |
 | RoboCasa | Reported success rates and the exact variant where available, such as RoboCasa-GR1. | Different RoboCasa variants should remain separately labeled. |
